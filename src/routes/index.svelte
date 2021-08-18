@@ -18,7 +18,12 @@
 </script>
 
 <svelte:head>
-    <!-- head content -->
+    <title>{document.data.title}</title>
+    <meta name="description" content="Chances are you’ve heard Mike talking on various television networks across America" />
+    <meta name="keywords" content="Voiceover, film voiceover, commercial voiceover" />
+    <meta name="author" content="Mike Goral's website" />
+	<meta name="robots" content="noindex nofollow" />
+	<html lang="en" />
 </svelte:head>
 
 <!-- body wrapper -->
@@ -49,13 +54,13 @@
            
             <!-- main navigation desktop -->
             <nav class="md:flex justify-center items-center gap-6 hidden py-8">
-                <a href="/">DEMOS</a>
+                <a href="#featured">DEMOS</a>
                 <div class="h-4 w-px bg-gray-400"></div>
-                <a href="/">FEATURED WORK</a>
+                <a href="#featured">FEATURED WORK</a>
                 <div class="h-4 w-px bg-gray-400"></div>
-                <a href="/">ABOUT MIKEGORAL</a>
+                <a href="#about">ABOUT MIKEGORAL</a>
                 <div>
-                <button class="bg-[#12b4de] font-medium px-4 py-1">BOOK MIKE</button>
+                <a href="#book" class="bg-[#12b4de] font-medium px-4 py-1">BOOK MIKE</a>
                 </div>
             </nav>
         
@@ -63,7 +68,7 @@
     </section>
 
     <!-- Featured work section -->
-    <section class="max-w-full mx-3 lg:mx-14 xl:mx-32 bg-[#e9e9e9]" >
+    <section id="featured" class="max-w-full mx-3 lg:mx-14 xl:mx-32 bg-[#e9e9e9]" >
         <div class="flex flex-col justify-center mx-5 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] pt-10 lg:pt-[9rem] pb-9">
             <!-- video full view + filter options -->
             <div class="flex flex-col lg:flex-row lg:justify-between gap-[5rem]">
@@ -113,7 +118,7 @@
     </section>
 
     <!-- About section -->
-    <section class="max-w-full mx-8 lg:mx-14 xl:mx-32 mt-[3.5rem] xl:mt-[7rem] " >
+    <section id="about" class="max-w-full mx-8 lg:mx-14 xl:mx-32 mt-[3.5rem] xl:mt-[7rem] " >
         <div class="flex flex-col">
             <div class="flex flex-col-reverse md:flex-row gap-[4rem] 2xl:gap-[8rem] items-center">
                 <img class="w-full" src="{document.data.about_image.url}" alt="3" border="0">
@@ -219,7 +224,7 @@
     </section>
 
     <!-- Contact mike form -->
-    <footer class="max-w-full mx-3 lg:mx-14 xl:mx-32 border bg-cover bg-center" style="background-image: url('https://i.ibb.co/ZctjkQB/bg-footer.jpg');">
+    <footer id="book" class="max-w-full mx-3 lg:mx-14 xl:mx-32 border bg-cover bg-center" style="background-image: url('https://i.ibb.co/ZctjkQB/bg-footer.jpg');">
         <div class="flex flex-col justify-center items-center gap-8 mx-5 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] py-16 ">
             <h1 class="text-2xl font-bold text-white">CONTACT MIKE DIRECTLY</h1>
             <div class="flex flex-col gap-4 w-full md:w-[40rem]  items-center">
