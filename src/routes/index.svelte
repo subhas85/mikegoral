@@ -1,9 +1,34 @@
-<script>
+<script context="module">
+    import Client from './../../utils/client';
+    import PrismicDom from 'prismic-dom';
+  
+    export async function load() {
+      const document = await Client.getByUID('page','homepage');
+      return {
+        props: {
+          document,
+        }
+      };
+    }
+  </script> 
 
+
+<script>
+    export let document;
 </script>
+
+<svelte:head>
+    <!-- head content -->
+</svelte:head>
 
 <!-- body wrapper -->
 <div class="font-body">
+
+    <!-- For testing Prismic API -->
+    <!-- <div>
+        <span>from prismic</span>
+        <pre>{JSON.stringify(document, null, 2)}</pre>
+    </div> -->
 
     <!-- Logo section -->
     <header class="max-w-full mx-3 lg:mx-14 xl:mx-32 ">
@@ -16,10 +41,10 @@
     <section class="max-w-full mx-3 lg:mx-14 xl:mx-32 bg-gray-300 re" >
        
         <!-- menu/nav starts here -->
-        <div class="h-[418px] md:h-[618px] bg-center bg-cover relative" style="background-image: url('https://i.ibb.co/WyGpBQT/bg-hero-section.jpg');">
+        <div class="h-[418px] md:h-[618px] bg-center bg-cover relative" style="background-image: url('{document.data.image.url}');">
              <!-- hero graphic -->
              <div class="absolute bottom-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <img class="" src="https://i.ibb.co/tBS87F4/7.png" alt="7" border="0">
+                <img class="" src="{document.data.featured_image.url}" alt="7" border="0">
              </div>
            
             <!-- main navigation desktop -->
@@ -91,7 +116,7 @@
     <section class="max-w-full mx-8 lg:mx-14 xl:mx-32 mt-[3.5rem] xl:mt-[7rem] " >
         <div class="flex flex-col">
             <div class="flex flex-col-reverse md:flex-row gap-[4rem] 2xl:gap-[8rem] items-center">
-                <img class="w-full" src="https://i.ibb.co/BNMF8TS/3.png" alt="3" border="0">
+                <img class="w-full" src="{document.data.about_image.url}" alt="3" border="0">
                 <div class="flex flex-col gap-8 items-end">
                     <div class="flex flex-col gap-2 text-right">
                         <h1 class="text-3xl text-[#12b4de] font-bold">ABOUT</h1>
@@ -103,9 +128,7 @@
                     </div>
                     <div class="w-full xl:w-10/12">
                         <p class="text-right leading-loose">
-                            After being kicked out of class for excessive talking on a regular basis, Mike decided to make a career 
-                            out of talking. Chances are you’ve heard Mike talking on various television networks across America. 
-                            You can hear him on numerous network promos, long-form series narrations, commercials and radio stations.
+                            {@html PrismicDom.RichText.asHtml(document.data.content)}
                         </p>
                     </div>
                 </div>
@@ -113,12 +136,11 @@
             <div class="flex flex-col md:flex-row gap-4 md:gap-[4rem] 2xl:gap-[8rem] items-center mt-8 md:mt-0">
                 <div class="w-full xl:w-10/12">
                     <p class="leading-loose">
-                        Millions of people hear Mike Goral‘s voice every day! He has done voiceovers for The Rachael Ray Show, CNN, A&E, HBO, 
-                        Showtime, Cartoon Network, Food Network, The Weather Channel, Discovery, HGTV, DIY, Smithsonian Channel,  and many others.
+                        {@html PrismicDom.RichText.asHtml(document.data.about_description_2nd_part)}
                     </p>
                 </div>
                 
-                <img src="https://i.ibb.co/6nCG05X/sound-wave-mike-goral.jpg" alt="sound-wave-mike-goral" border="0">
+                <img src="{document.data.about_2nd_image.url}" alt="sound-wave-mike-goral" border="0">
                 
             </div>
         </div>
@@ -126,7 +148,7 @@
 
     <!-- Book mike goral section -->
     <section class="max-w-full mx-3 lg:mx-14 xl:mx-32 bg-[#e9e9e9]" >
-        <div class="flex flex-col justify-center mx-5 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] pt-32 pb-9">
+        <div class="flex flex-col justify-center mx-5 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] pt-32 pb-20">
             <div class="flex flex-col gap-2">
                 <h1 class="text-3xl text-[#12b4de] font-bold">BOOK</h1>
                 <h1 class="text-5xl text-[#202427] font-bold pb-4">MIKE GORAL</h1>
@@ -137,10 +159,12 @@
                     <div>
                         <h1 class="font-bold text-[#12b4de]">NEW YORK</h1>
                         <div class="mt-4 space-y-1">
-                           <h4>Atlas</h4>
-                           <h4>15 East 32nd Street</h4>
-                           <h4>New York, New York-10016</h4>
-                           <h4>15 East 32nd Street</h4>
+                            <p class=" w-[12rem]">
+                                Atlas
+                                15 East 32nd Street
+                                New York, New York-10016
+                            </p>
+                       
                         </div>
                     </div>
                     <div class="mt-8">
@@ -186,8 +210,7 @@
                     <div class="mt-8">
                         <h1 class="font-bold text-gray-500">Jude Foster</h1>
                         <div class="mt-1 space-y-2">
-                           <h4>jude@fostertalent.com</h4>
-                          
+                            <a href = "mailto: jude@fostertalent.com">jude@fostertalent.com</a>
                         </div>
                     </div>
                 </div>
@@ -195,8 +218,31 @@
         </div>
     </section>
 
+    <!-- Contact mike form -->
+    <footer class="max-w-full mx-3 lg:mx-14 xl:mx-32 border bg-cover bg-center" style="background-image: url('https://i.ibb.co/ZctjkQB/bg-footer.jpg');">
+        <div class="flex flex-col justify-center items-center gap-8 mx-5 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] py-16 ">
+            <h1 class="text-2xl font-bold text-white">CONTACT MIKE DIRECTLY</h1>
+            <div class="flex flex-col gap-4 w-full md:w-[40rem]  items-center">
+                <div class="flex flex-col md:flex-row gap-3 w-full">
+                    <input class=" p-3 border w-full bg-[#ffffff00] text-white" type="text" placeholder="Name">
+                    <input class=" p-3 border w-full bg-[#ffffff00] text-white" type="email" placeholder="Email">
+                </div>
+                <textarea class="p-2 w-full border bg-[#ffffff00] text-white" name="description" id="emailBody" cols="10" rows="5">Message</textarea>
+                <input class="bg-[#12b4de] w-[12rem] py-2 text-white cursor-pointer font-medium hover:bg-[#14a7cc] bg-opacity-90 mt-6" type="submit" value="Send">
+            </div>
+            
+        </div>
+       
+    </footer>
+    <footer class="max-w-full mx-3 lg:mx-14 xl:mx-32 flex justify-between items-center mt-3 pb-10">
+        <h3 class=" underline text-gray-400 text-sm">©mikegoral.com All rights reserved</h3>
+        <div class="flex items-center gap-3">
+            <a href="{document.data.instagram_link.url}" class="bg-[#12b4de] w-10 h-10 rounded-full flex items-center justify-center"><i class="gg-instagram text-white"></i></a>
+            <a href="{document.data.linkedin__link.url}" class="bg-[#12b4de] w-10 h-10 rounded-full flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="white" width="22" height="22" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg></a>
+        </div>
+    </footer>
 </div>
 
 <style>
-
+@import url('https://css.gg/instagram.css');
 </style>
