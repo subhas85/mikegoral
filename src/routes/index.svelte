@@ -1,20 +1,49 @@
 <script context="module">
     import Client from './../../utils/client';
     import PrismicDom from 'prismic-dom';
-  
-    export async function load() {
+
+    
+    export async function load({fetch}) {
       const document = await Client.getByUID('page','homepage');
+      const res = await fetch("https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&&maxResults=25&playlistId=PLjbCUr0mvSc6Spk5A34HcmscFuNCD7wEw&key=AIzaSyCX0hzH8Ts0t80Mp4asrLFkLTKFuIFNRVw");
+      const ytList = await res.json();
+      const ytListitems = ytList.items
+        
       return {
         props: {
           document,
+          ytListitems
         }
       };
     }
+
   </script> 
 
 
 <script>
+
     export let document;
+    export let ytListitems;
+    let promise = Promise.resolve([]);
+
+    async function fetchUsers() {
+		const response = await self.fetch('https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&&maxResults=15&playlistId=PLBhKKjnUR0XAIAK-HDMvwQ7sx5UXe9zeK&key=AIzaSyCX0hzH8Ts0t80Mp4asrLFkLTKFuIFNRVw');
+
+		if (response.ok) {
+  		return response.json();
+			
+		} else {
+			throw new Error(users);
+		}
+	}
+
+    function handleClick() {
+		// Now set it to the real fetch promise 
+        promise = fetchUsers();
+        console.log(promise)
+	}
+
+  
 </script>
 
 <svelte:head>
@@ -33,6 +62,17 @@
     <!-- <div>
         <span>from prismic</span>
         <pre>{JSON.stringify(document, null, 2)}</pre>
+    </div> -->
+
+    <!-- <div>
+        {document.booking_details}
+    </div> -->
+    
+    
+    <!-- <div class="container">
+        {#each ytListitems as item}
+            <p>{item.contentDetails.videoId}</p>
+        {/each}
     </div> -->
 
     <!-- Logo section -->
@@ -67,9 +107,13 @@
         </div>
     </section>
 
+    <!-- testing -  -->
+    <div id="player"></div>
+    
+
     <!-- Featured work section -->
     <section id="featured" class="max-w-full mx-3 lg:mx-14 xl:mx-32 bg-[#e9e9e9]" >
-        <div class="flex flex-col justify-center mx-5 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] pt-10 lg:pt-[9rem] pb-9">
+        <div class="flex flex-col justify-center mx-5 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] pt-10 lg:pt-[9rem] pb-20">
             <!-- video full view + filter options -->
             <div class="flex flex-col lg:flex-row lg:justify-between gap-[5rem]">
                 <div class="space-y-2">
@@ -78,35 +122,50 @@
                     <div class="h-1 w-10 bg-gray-800 "></div>
                     <div class="pt-6">
                         <ul class="flex flex-row flex-wrap lg:flex-col gap-2 gap-x-3 text-lg cursor-pointer items-center lg:items-start">
-                            <li class="hover:text-[#12b4de] hover:font-medium">View All</li>
+                            <li class="hover:text-[#12b4de] hover:font-medium" on:click="{()=>{handleClick()}}">View All</li>
                             <li class="h-4 w-[2px] bg-gray-500 lg:hidden"></li>
-                            <li class="hover:text-[#12b4de] hover:font-medium">Promo</li>
+                            <li class="hover:text-[#12b4de] hover:font-medium" on:click="{()=>{handleClick()}}">Promo</li>
                             <li class="h-4 w-[2px] bg-gray-500 lg:hidden"></li>
-                            <li class="hover:text-[#12b4de] hover:font-medium">Imaging</li>
+                            <li class="hover:text-[#12b4de] hover:font-medium" on:click="{()=>{handleClick()}}">Imaging</li>
                             <li class="h-4 w-[2px] bg-gray-500 lg:hidden"></li>
-                            <li class="hover:text-[#12b4de] hover:font-medium">Narration</li>
+                            <li class="hover:text-[#12b4de] hover:font-medium" on:click="{()=>{handleClick()}}">Narration</li>
                             <li class="h-4 w-[2px] bg-gray-500 lg:hidden"></li>
-                            <li class="hover:text-[#12b4de] hover:font-medium">Commercial</li>
+                            <li class="hover:text-[#12b4de] hover:font-medium" on:click="{()=>{handleClick()}}">Commercial</li>
                             <li class="h-4 w-[2px] bg-gray-500 lg:hidden"></li>
                             <li class="hover:text-[#12b4de] hover:font-medium">Industrial</li>
                         </ul>
                     </div>
                 </div>
-                <div>
-                    <img src="https://i.ibb.co/cDY5jcM/video-cover.jpg" alt="video-cover" border="0">
+                <div class="youtube">
+                    <iframe class="responsive-iframe" src="https://www.youtube.com/embed/videoseries?list=PLjbCUr0mvSc6Spk5A34HcmscFuNCD7wEw" 
+                    title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
                 </div>
             </div>
+
             <!-- video thumbnail carousel -->
-            
             <div class='flex relative items-center gap-5'>
                 <svg class="absolute -left-14 w-8 h-8 hidden lg:block" fill="none" stroke="gray" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                 <div class="mt-8 flex gap-4 flex-row justify-between overflow-x-scroll pb-2">
                 
-                    {#each Array(6) as _}
-                        <div class='flex bg-green-400 flex-shrink-0'>
-                            <img class="h-[6rem] lg:h-[8.45rem] object-contain bg-"  src="https://i.ibb.co/cDY5jcM/video-cover.jpg" alt="video-cover" border="0">
-                        </div>
-                    {/each}
+                   
+                        {#await promise}
+                            {#each ytListitems as ytItem}
+                                <div class='flex bg-green-400 flex-shrink-0'>
+                                    <iframe class="w-[15rem] 2xl:w-[15rem] 2xl:h-[8.438rem]" src="https://www.youtube.com/embed/{ytItem.contentDetails.videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                           {/each}
+                        {:then ytList}
+                            {#each ytList.items as {contentDetails} }
+                                <div class='flex bg-green-400 flex-shrink-0'>
+                                    <iframe class="w-[15rem] 2xl:w-[15rem] 2xl:h-[8.438rem]" src="https://www.youtube.com/embed/{contentDetails.videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            {/each}
+                        {:catch error}
+                            <p style="color: red">{error.message}</p>
+                        {/await}
+                   
+                 
                 </div>
                 <svg class="absolute -right-14 w-8 h-8 hidden lg:block" fill="none" stroke="gray" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </div>
@@ -240,7 +299,7 @@
        
     </footer>
     <footer class="max-w-full mx-3 lg:mx-14 xl:mx-32 flex justify-between items-center mt-3 pb-10">
-        <h3 class=" underline text-gray-400 text-sm">©mikegoral.com All rights reserved</h3>
+        <h5 class=" underline text-gray-400 text-sm">©mikegoral.com All rights reserved</h5>
         <div class="flex items-center gap-3">
             <a href="{document.data.instagram_link.url}" class="bg-[#12b4de] w-10 h-10 rounded-full flex items-center justify-center"><i class="gg-instagram text-white"></i></a>
             <a href="{document.data.linkedin__link.url}" class="bg-[#12b4de] w-10 h-10 rounded-full flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="white" width="22" height="22" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg></a>
@@ -250,4 +309,22 @@
 
 <style>
 @import url('https://css.gg/instagram.css');
+
+.youtube {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 44.25%; /* 16:9 Aspect Ratio */
+}
+
+.responsive-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
 </style>
