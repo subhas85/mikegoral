@@ -1,8 +1,8 @@
 <script context="module">
     import Client from './../../utils/client';
     import PrismicDom from 'prismic-dom';
+import { empty } from 'svelte/internal';
 
-    
     export async function load({fetch}) {
       const document = await Client.getByUID('page','homepage');
       const res = await fetch("https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&&maxResults=25&playlistId=PLjbCUr0mvSc6Spk5A34HcmscFuNCD7wEw&key=AIzaSyCX0hzH8Ts0t80Mp4asrLFkLTKFuIFNRVw");
@@ -28,7 +28,6 @@
 
     async function fetchUsers() {
 		const response = await self.fetch('https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&&maxResults=15&playlistId=PLBhKKjnUR0XAIAK-HDMvwQ7sx5UXe9zeK&key=AIzaSyCX0hzH8Ts0t80Mp4asrLFkLTKFuIFNRVw');
-
 		if (response.ok) {
   		return response.json();
 			
@@ -38,10 +37,13 @@
 	}
 
     function handleClick() {
-		// Now set it to the real fetch promise 
         promise = fetchUsers();
-        console.log(promise)
 	}
+
+    let videoId = ytListitems[0].contentDetails.videoId
+    function updateYtVideo(id){
+        videoId = id
+    }
 
   
 </script>
@@ -137,9 +139,13 @@
                     </div>
                 </div>
                 <div class="youtube">
-                    <iframe class="responsive-iframe" src="https://www.youtube.com/embed/videoseries?list=PLjbCUr0mvSc6Spk5A34HcmscFuNCD7wEw" 
-                    title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen></iframe>
+                    {#if videoId == ''}
+                        <p>Loading..</p>
+                    {:else}
+                        <iframe class="responsive-iframe" src="https://www.youtube.com/embed/{videoId}" 
+                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
+                    {/if}
                 </div>
             </div>
 
@@ -148,16 +154,17 @@
                 <svg class="absolute -left-14 w-8 h-8 hidden lg:block" fill="none" stroke="gray" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                 <div class="mt-8 flex gap-4 flex-row justify-between overflow-x-scroll pb-2">
                 
-                   
                         {#await promise}
                             {#each ytListitems as ytItem}
-                                <div class='flex bg-green-400 flex-shrink-0'>
+                                <div class='flex relative flex-shrink-0 cursor-pointer'>
+                                    <div on:click="{()=>{updateYtVideo(ytItem.contentDetails.videoId)}}" class="absolute inset-0 bg-green-500 opacity-10"></div>
                                     <iframe class="w-[15rem] 2xl:w-[15rem] 2xl:h-[8.438rem]" src="https://www.youtube.com/embed/{ytItem.contentDetails.videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </div>
                            {/each}
                         {:then ytList}
                             {#each ytList.items as {contentDetails} }
-                                <div class='flex bg-green-400 flex-shrink-0'>
+                                <div class='flex relative flex-shrink-0 cursor-pointer'>
+                                    <div on:click="{()=>{updateYtVideo(contentDetails.videoId)}}" class="absolute inset-0 bg-green-500 opacity-10"></div>
                                     <iframe class="w-[15rem] 2xl:w-[15rem] 2xl:h-[8.438rem]" src="https://www.youtube.com/embed/{contentDetails.videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </div>
                             {/each}
@@ -165,7 +172,6 @@
                             <p style="color: red">{error.message}</p>
                         {/await}
                    
-                 
                 </div>
                 <svg class="absolute -right-14 w-8 h-8 hidden lg:block" fill="none" stroke="gray" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </div>

@@ -629,6 +629,13 @@ html {
 	position: relative;
 }
 
+.inset-0{
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+}
+
 .bottom-0{
 	bottom: 0px;
 }
@@ -905,6 +912,11 @@ html {
 	background-color: rgba(107, 114, 128, var(--tw-bg-opacity));
 }
 
+.bg-green-500{
+	--tw-bg-opacity: 1;
+	background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
+}
+
 .bg-green-400{
 	--tw-bg-opacity: 1;
 	background-color: rgba(52, 211, 153, var(--tw-bg-opacity));
@@ -1059,6 +1071,18 @@ html {
 
 .underline{
 	text-decoration: underline;
+}
+
+.opacity-60{
+	opacity: 0.6;
+}
+
+.opacity-90{
+	opacity: 0.9;
+}
+
+.opacity-10{
+	opacity: 0.1;
 }
 
 .filter{
