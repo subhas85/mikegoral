@@ -44,7 +44,7 @@
     }
 
     // handle contact for here 
-    let toEmail;
+    let fromEmail;
     let name;
     let message = "Your message";
 
@@ -305,7 +305,7 @@
                 <form on:submit|preventDefault="{submitForm}" action="">
                     <div class="flex flex-col md:flex-row gap-3 w-full">
                         <input bind:value={name} class=" p-3 border w-full bg-[#ffffff00] text-white" type="text" placeholder="Name">
-                        <input bind:value={toEmail} class=" p-3 border w-full bg-[#ffffff00] text-white" type="email" placeholder="Email">
+                        <input bind:value={fromEmail} class=" p-3 border w-full bg-[#ffffff00] text-white" type="email" placeholder="Email">
                     </div>
                     <textarea class="p-2 w-full border bg-[#ffffff00] text-white" name="description" id="emailBody" cols="10" rows="5">{message}</textarea>
                     <input class="bg-[#12b4de] w-[12rem] py-2 text-white cursor-pointer font-medium hover:bg-[#14a7cc] bg-opacity-90 mt-6" type="submit" value="Send">

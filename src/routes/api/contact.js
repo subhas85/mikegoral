@@ -3,7 +3,7 @@ import mailjet from "node-mailjet";
 export const post = (requestl) => {
   const formBody = JSON.parse(requestl.body);
   const name = formBody.name;
-  const fromEmail = formBody.toEmail;
+  const fromEmail = formBody.fromEmail;
   const message = formBody.message;
   let res;
   const mailj = mailjet.connect(
@@ -31,7 +31,7 @@ export const post = (requestl) => {
   return {
     body: {
       name,
-      toEmail,
+      fromEmail,
       message,
       res,
     },
