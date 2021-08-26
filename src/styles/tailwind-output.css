@@ -912,14 +912,9 @@ html {
 	background-color: rgba(107, 114, 128, var(--tw-bg-opacity));
 }
 
-.bg-green-500{
+.bg-gray-700{
 	--tw-bg-opacity: 1;
-	background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
-}
-
-.bg-green-400{
-	--tw-bg-opacity: 1;
-	background-color: rgba(52, 211, 153, var(--tw-bg-opacity));
+	background-color: rgba(55, 65, 81, var(--tw-bg-opacity));
 }
 
 .bg-\[\#ffffff00\]{
@@ -1071,14 +1066,6 @@ html {
 
 .underline{
 	text-decoration: underline;
-}
-
-.opacity-60{
-	opacity: 0.6;
-}
-
-.opacity-90{
-	opacity: 0.9;
 }
 
 .opacity-10{

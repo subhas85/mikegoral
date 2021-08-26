@@ -1,8 +1,7 @@
 <script context="module">
     import Client from './../../utils/client';
     import PrismicDom from 'prismic-dom';
-import { empty } from 'svelte/internal';
-
+    
     export async function load({fetch}) {
       const document = await Client.getByUID('page','homepage');
       const res = await fetch("https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&&maxResults=25&playlistId=PLjbCUr0mvSc6Spk5A34HcmscFuNCD7wEw&key=AIzaSyCX0hzH8Ts0t80Mp4asrLFkLTKFuIFNRVw");
@@ -21,12 +20,11 @@ import { empty } from 'svelte/internal';
 
 
 <script>
-
     export let document;
     export let ytListitems;
     let promise = Promise.resolve([]);
 
-    async function fetchUsers() {
+    async function fetchYtvideos() {
 		const response = await self.fetch('https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&&maxResults=15&playlistId=PLBhKKjnUR0XAIAK-HDMvwQ7sx5UXe9zeK&key=AIzaSyCX0hzH8Ts0t80Mp4asrLFkLTKFuIFNRVw');
 		if (response.ok) {
   		return response.json();
@@ -36,16 +34,31 @@ import { empty } from 'svelte/internal';
 		}
 	}
 
-    function handleClick() {
-        promise = fetchUsers();
+    function getYtVideos() {
+        promise = fetchYtvideos();
 	}
 
-    let videoId = ytListitems[0].contentDetails.videoId
+    let videoId;
     function updateYtVideo(id){
         videoId = id
     }
 
-  
+    // handle contact for here 
+    let toEmail;
+    let name;
+    let message = "Your message";
+
+    const submitForm = async () =>{
+        const submit = await fetch('/api/contact', {
+            method: "POST",
+            body: JSON.stringify({
+                name, toEmail, message
+            })
+        })
+        const data = await submit.json()
+        console.log(data)
+    }; 
+
 </script>
 
 <svelte:head>
@@ -69,7 +82,6 @@ import { empty } from 'svelte/internal';
     <!-- <div>
         {document.booking_details}
     </div> -->
-    
     
     <!-- <div class="container">
         {#each ytListitems as item}
@@ -111,7 +123,6 @@ import { empty } from 'svelte/internal';
 
     <!-- testing -  -->
     <div id="player"></div>
-    
 
     <!-- Featured work section -->
     <section id="featured" class="max-w-full mx-3 lg:mx-14 xl:mx-32 bg-[#e9e9e9]" >
@@ -124,25 +135,27 @@ import { empty } from 'svelte/internal';
                     <div class="h-1 w-10 bg-gray-800 "></div>
                     <div class="pt-6">
                         <ul class="flex flex-row flex-wrap lg:flex-col gap-2 gap-x-3 text-lg cursor-pointer items-center lg:items-start">
-                            <li class="hover:text-[#12b4de] hover:font-medium" on:click="{()=>{handleClick()}}">View All</li>
+                            <li class="hover:text-[#12b4de] hover:font-medium" on:click="{()=>{getYtVideos()}}">View All</li>
                             <li class="h-4 w-[2px] bg-gray-500 lg:hidden"></li>
-                            <li class="hover:text-[#12b4de] hover:font-medium" on:click="{()=>{handleClick()}}">Promo</li>
+                            <li class="hover:text-[#12b4de] hover:font-medium" on:click="{()=>{getYtVideos()}}">Promo</li>
                             <li class="h-4 w-[2px] bg-gray-500 lg:hidden"></li>
-                            <li class="hover:text-[#12b4de] hover:font-medium" on:click="{()=>{handleClick()}}">Imaging</li>
+                            <li class="hover:text-[#12b4de] hover:font-medium" on:click="{()=>{getYtVideos()}}">Imaging</li>
                             <li class="h-4 w-[2px] bg-gray-500 lg:hidden"></li>
-                            <li class="hover:text-[#12b4de] hover:font-medium" on:click="{()=>{handleClick()}}">Narration</li>
+                            <li class="hover:text-[#12b4de] hover:font-medium" on:click="{()=>{getYtVideos()}}">Narration</li>
                             <li class="h-4 w-[2px] bg-gray-500 lg:hidden"></li>
-                            <li class="hover:text-[#12b4de] hover:font-medium" on:click="{()=>{handleClick()}}">Commercial</li>
+                            <li class="hover:text-[#12b4de] hover:font-medium" on:click="{()=>{getYtVideos()}}">Commercial</li>
                             <li class="h-4 w-[2px] bg-gray-500 lg:hidden"></li>
                             <li class="hover:text-[#12b4de] hover:font-medium">Industrial</li>
                         </ul>
                     </div>
                 </div>
                 <div class="youtube">
-                    {#if videoId == ''}
-                        <p>Loading..</p>
+                    {#if !videoId}
+                        <iframe class="responsive-iframe" src="https://www.youtube.com/embed/{ytListitems[0].contentDetails.videoId}" 
+                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
                     {:else}
-                        <iframe class="responsive-iframe" src="https://www.youtube.com/embed/{videoId}" 
+                        <iframe class="responsive-iframe" src="https://www.youtube.com/embed/{videoId}?autoplay=1" 
                         title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen></iframe>
                     {/if}
@@ -153,18 +166,17 @@ import { empty } from 'svelte/internal';
             <div class='flex relative items-center gap-5'>
                 <svg class="absolute -left-14 w-8 h-8 hidden lg:block" fill="none" stroke="gray" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                 <div class="mt-8 flex gap-4 flex-row justify-between overflow-x-scroll pb-2">
-                
                         {#await promise}
                             {#each ytListitems as ytItem}
                                 <div class='flex relative flex-shrink-0 cursor-pointer'>
-                                    <div on:click="{()=>{updateYtVideo(ytItem.contentDetails.videoId)}}" class="absolute inset-0 bg-green-500 opacity-10"></div>
+                                    <div on:click="{()=>{updateYtVideo(ytItem.contentDetails.videoId)}}" class="absolute inset-0 bg-gray-700 opacity-10"></div>
                                     <iframe class="w-[15rem] 2xl:w-[15rem] 2xl:h-[8.438rem]" src="https://www.youtube.com/embed/{ytItem.contentDetails.videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </div>
                            {/each}
                         {:then ytList}
                             {#each ytList.items as {contentDetails} }
                                 <div class='flex relative flex-shrink-0 cursor-pointer'>
-                                    <div on:click="{()=>{updateYtVideo(contentDetails.videoId)}}" class="absolute inset-0 bg-green-500 opacity-10"></div>
+                                    <div on:click="{()=>{updateYtVideo(contentDetails.videoId)}}" class="absolute inset-0 bg-gray-700 opacity-10"></div>
                                     <iframe class="w-[15rem] 2xl:w-[15rem] 2xl:h-[8.438rem]" src="https://www.youtube.com/embed/{contentDetails.videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </div>
                             {/each}
@@ -177,9 +189,6 @@ import { empty } from 'svelte/internal';
             </div>
             
         </div>
-          
-            
-       
     </section>
 
     <!-- About section -->
@@ -293,12 +302,14 @@ import { empty } from 'svelte/internal';
         <div class="flex flex-col justify-center items-center gap-8 mx-5 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] py-16 ">
             <h1 class="text-2xl font-bold text-white">CONTACT MIKE DIRECTLY</h1>
             <div class="flex flex-col gap-4 w-full md:w-[40rem]  items-center">
-                <div class="flex flex-col md:flex-row gap-3 w-full">
-                    <input class=" p-3 border w-full bg-[#ffffff00] text-white" type="text" placeholder="Name">
-                    <input class=" p-3 border w-full bg-[#ffffff00] text-white" type="email" placeholder="Email">
-                </div>
-                <textarea class="p-2 w-full border bg-[#ffffff00] text-white" name="description" id="emailBody" cols="10" rows="5">Message</textarea>
-                <input class="bg-[#12b4de] w-[12rem] py-2 text-white cursor-pointer font-medium hover:bg-[#14a7cc] bg-opacity-90 mt-6" type="submit" value="Send">
+                <form on:submit|preventDefault="{submitForm}" action="">
+                    <div class="flex flex-col md:flex-row gap-3 w-full">
+                        <input bind:value={name} class=" p-3 border w-full bg-[#ffffff00] text-white" type="text" placeholder="Name">
+                        <input bind:value={toEmail} class=" p-3 border w-full bg-[#ffffff00] text-white" type="email" placeholder="Email">
+                    </div>
+                    <textarea class="p-2 w-full border bg-[#ffffff00] text-white" name="description" id="emailBody" cols="10" rows="5">{message}</textarea>
+                    <input class="bg-[#12b4de] w-[12rem] py-2 text-white cursor-pointer font-medium hover:bg-[#14a7cc] bg-opacity-90 mt-6" type="submit" value="Send">
+                </form>
             </div>
             
         </div>
