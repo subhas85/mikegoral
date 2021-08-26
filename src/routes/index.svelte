@@ -52,7 +52,7 @@
         const submit = await fetch('/api/contact', {
             method: "POST",
             body: JSON.stringify({
-                name, toEmail, message
+                name, fromEmail, message
             })
         })
         const data = await submit.json()
