@@ -5,7 +5,7 @@
   export async function load({ fetch }) {
     const document = await Client.getByUID("page", "homepage");
     const res = await fetch(
-      "https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&&maxResults=25&playlistId=PLjbCUr0mvSc6Spk5A34HcmscFuNCD7wEw&key=AIzaSyCX0hzH8Ts0t80Mp4asrLFkLTKFuIFNRVw"
+      "https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&&maxResults=25&playlistId=PL1VQcdkevaIG2MBFH29dO4jaFXd3cWR5z&key=AIzaSyCX0hzH8Ts0t80Mp4asrLFkLTKFuIFNRVw"
     );
     const ytList = await res.json();
     const ytListitems = ytList.items;
@@ -255,8 +255,7 @@ onMount(()=>{
           {#if !videoId}
             <iframe
               class="responsive-iframe"
-              src="https://www.youtube.com/embed/{ytListitems[0].contentDetails
-                .videoId}"
+              src="https://www.youtube.com/embed/{ytListitems[0].contentDetails.videoId}"
               title="YouTube video player"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
