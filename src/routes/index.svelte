@@ -492,11 +492,11 @@ onMount(()=>{
     style="background-image: url('https://i.ibb.co/ZctjkQB/bg-footer.jpg');"
   >
     <div
-      class="flex flex-col justify-center items-center gap-8 mx-5 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] py-16 "
+      class="flex flex-col justify-center items-center gap-8 mx-2 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] py-16 "
     >
       <h1 class="text-2xl font-bold text-white">CONTACT MIKE DIRECTLY</h1>
-      <div class="flex flex-col gap-4 w-full md:w-[40rem]  items-center">
-        <form on:submit|preventDefault={submitForm} action="">
+      <div class="flex flex-col gap-4 w-full md:w-[40rem] items-center">
+        <form class="flex flex-col items-center" on:submit|preventDefault={submitForm} action="">
           <div class="flex flex-col md:flex-row gap-3 w-full">
             <input
               bind:value={name}
