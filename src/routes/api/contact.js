@@ -5,19 +5,20 @@ export const post = (requestl) => {
   const name = formBody.name;
   const fromEmail = formBody.fromEmail;
   const message = formBody.message;
+  const toEmail = formBody.toEmail;
   let res;
   const mailj = mailjet.connect(
     "842a46714bc2ed5f84f4650bf33177af",
     "d536c59939cf1b5326d334cd3f32e0ed"
   );
   const request = mailj.post("send").request({
-    FromEmail: fromEmail,
+    FromEmail: 'donotreply@mikegoral.com',
     FromName: name,
-    Subject: "Email from Mike Goral website",
-    "Text-part": message,
+    Subject: `Email from ${fromEmail} Mike Goral website`,
+    "Text-part": `From:${name},${fromEmail} and the message is:${message}`,
     "Html-part":
-      '<h3>Dear passenger, welcome to <a href="https://www.mailjet.com/">Mailjet</a>!<br />May the delivery force be with you!',
-    Recipients: [{ Email: "prakashd88@gmail.com" }],
+      '<h3>You have a new message from mikegoral.com',
+    Recipients: [{ Email: toEmail }],
   });
   request
     .then((result) => {
