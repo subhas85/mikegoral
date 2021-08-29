@@ -152,10 +152,10 @@ onMount(()=>{
         <pre>{JSON.stringify(document, null, 2)}</pre>
     </div> -->
 
-  <div>
+  <!-- <div>
     <pre>{JSON.stringify(ytPlaylist)}</pre>
     <pre>{JSON.stringify(ytPlaylist[0])}</pre>
-  </div>
+  </div> -->
 
   <!-- <div class="container">
         {#each ytListitems as item}
