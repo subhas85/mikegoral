@@ -497,7 +497,7 @@ onMount(()=>{
     <h1 class="text-2xl font-bold text-white">CONTACT MIKE DIRECTLY</h1>
     <div class="flex flex-col space-y-4 w-full md:w-[40rem] items-center">
       <form class="flex flex-col items-center" on:submit|preventDefault={submitForm} action="">
-        <div class="flex flex-col md:flex-row gap-3 w-full">
+        <div class="flex flex-col md:flex-row space-y-3 w-full">
           <input
             bind:value={name}
             class=" p-3 border w-full bg-[#ffffff00] text-white"
