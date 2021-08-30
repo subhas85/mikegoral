@@ -283,7 +283,7 @@ onMount(()=>{
 
       <!-- video thumbnail carousel -->
       <div class="flex relative items-center gap-5">
-        <svg on:mousedown="{()=>{scroLeft()}}"
+        <svg on:mousedown="{()=>{scroRight()}}"
           class="absolute -left-14 w-8 h-8 hidden lg:block cursor-pointer"
           fill="none"
           stroke="gray"
@@ -346,7 +346,7 @@ onMount(()=>{
               {/await}
           {/if}
         </div>
-        <svg on:mousedown="{()=>{scroRight()}}"
+        <svg on:mousedown="{()=>{scroLeft()}}"
           class="absolute -right-14 w-8 h-8 hidden lg:block cursor-pointer"
           fill="none"
           stroke="gray"
