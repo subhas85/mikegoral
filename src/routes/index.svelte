@@ -221,18 +221,18 @@ onMount(()=>{
       class="flex flex-col justify-center mx-5 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] pt-10 lg:pt-[9rem] pb-20"
     >
       <!-- video full view + filter options -->
-      <div class="flex flex-col lg:flex-row lg:justify-between gap-[5rem]">
+      <div class="flex flex-col lg:flex-row lg:justify-between space-y-6">
         <div class="space-y-2">
           <h1 class="text-3xl text-[#12b4de] font-bold">FEATURED</h1>
           <h1 class="text-5xl text-[#202427] font-bold pb-4">WORK</h1>
           <div class="h-1 w-10 bg-gray-800 " />
           <div class="pt-6">
             <div
-              class="flex flex-row flex-wrap lg:flex-col text-lg cursor-pointer items-center lg:items-start"
+              class="flex flex-row flex-wrap space-x-3 md:space-x-0 space-y-3 lg:flex-col text-lg cursor-pointer items-center lg:items-start"
             >
               <div
                 class:selected="{viewAll === true}"
-                class="hover:text-[#12b4de] hover:font-medium px-4 md:px-0 py-1 md:py-2"
+                class="hover:text-[#12b4de] hover:font-medium"
                 on:click={() => {
                    viewAll = true
                    title = ''
@@ -245,7 +245,7 @@ onMount(()=>{
               {#each ytPlaylist as listItem}
                 <div
                   class:selected="{listItem.playlist_title == title}"
-                  class="hover:text-[#12b4de] hover:font-medium px-4 md:px-0 py-1 md:py-2"
+                  class="hover:text-[#12b4de] hover:font-medium"
                   on:click={() => {
                     title = listItem.playlist_title
                     getYtVideos(listItem.youtube_playlist.url);
