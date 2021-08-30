@@ -700,16 +700,12 @@ html {
 	height: 0.25rem;
 }
 
-.h-10{
-	height: 2.5rem;
-}
-
-.h-\[8rem\]{
-	height: 8rem;
-}
-
 .h-\[7rem\]{
 	height: 7rem;
+}
+
+.h-10{
+	height: 2.5rem;
 }
 
 .w-px{
@@ -728,8 +724,8 @@ html {
 	width: 2rem;
 }
 
-.w-\[15rem\]{
-	width: 15rem;
+.w-\[11rem\]{
+	width: 11rem;
 }
 
 .w-full{
@@ -738,10 +734,6 @@ html {
 
 .w-\[12rem\]{
 	width: 12rem;
-}
-
-.w-\[11rem\]{
-	width: 11rem;
 }
 
 .max-w-full{
@@ -910,16 +902,6 @@ html {
 	background-color: #ffffff00;
 }
 
-.bg-gray-600{
-	--tw-bg-opacity: 1;
-	background-color: rgba(75, 85, 99, var(--tw-bg-opacity));
-}
-
-.bg-green-200{
-	--tw-bg-opacity: 1;
-	background-color: rgba(167, 243, 208, var(--tw-bg-opacity));
-}
-
 .bg-green-400{
 	--tw-bg-opacity: 1;
 	background-color: rgba(52, 211, 153, var(--tw-bg-opacity));
@@ -927,14 +909,6 @@ html {
 
 .bg-opacity-90{
 	--tw-bg-opacity: 0.9;
-}
-
-.bg-opacity-80{
-	--tw-bg-opacity: 0.8;
-}
-
-.bg-opacity-50{
-	--tw-bg-opacity: 0.5;
 }
 
 .bg-opacity-30{
@@ -982,21 +956,6 @@ html {
 	padding-bottom: 0.5rem;
 }
 
-.py-\[16rem\]{
-	padding-top: 16rem;
-	padding-bottom: 16rem;
-}
-
-.py-\[12rem\]{
-	padding-top: 12rem;
-	padding-bottom: 12rem;
-}
-
-.py-\[13rem\]{
-	padding-top: 13rem;
-	padding-bottom: 13rem;
-}
-
 .py-\[14rem\]{
 	padding-top: 14rem;
 	padding-bottom: 14rem;
@@ -1005,11 +964,6 @@ html {
 .px-2{
 	padding-left: 0.5rem;
 	padding-right: 0.5rem;
-}
-
-.py-\[15rem\]{
-	padding-top: 15rem;
-	padding-bottom: 15rem;
 }
 
 .pt-10{
@@ -1105,24 +1059,14 @@ html {
 	color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
 
-.text-gray-400{
-	--tw-text-opacity: 1;
-	color: rgba(156, 163, 175, var(--tw-text-opacity));
-}
-
 .text-gray-200{
 	--tw-text-opacity: 1;
 	color: rgba(229, 231, 235, var(--tw-text-opacity));
 }
 
-.text-gray-100{
+.text-gray-400{
 	--tw-text-opacity: 1;
-	color: rgba(243, 244, 246, var(--tw-text-opacity));
-}
-
-.text-blue-400{
-	--tw-text-opacity: 1;
-	color: rgba(96, 165, 250, var(--tw-text-opacity));
+	color: rgba(156, 163, 175, var(--tw-text-opacity));
 }
 
 .underline{
@@ -1131,14 +1075,6 @@ html {
 
 .opacity-10{
 	opacity: 0.1;
-}
-
-.opacity-60{
-	opacity: 0.6;
-}
-
-.opacity-80{
-	opacity: 0.8;
 }
 
 .filter{
@@ -1177,16 +1113,12 @@ html {
 		height: 8rem;
 	}
 
-	.md\:w-\[40rem\]{
-		width: 40rem;
-	}
-
-	.md\:w-\[15rem\]{
-		width: 15rem;
-	}
-
 	.md\:w-\[13rem\]{
 		width: 13rem;
+	}
+
+	.md\:w-\[40rem\]{
+		width: 40rem;
 	}
 
 	.md\:flex-row{

@@ -141,10 +141,10 @@ onMount(()=>{
   //scrolling left right 
   let box
   function scroLeft(){
-    box.scrollLeft += 60
+    box.scrollLeft += 270
   }
   function scroRight(){
-    box.scrollLeft -= 60
+    box.scrollLeft -= 270
   }
 </script>
 
