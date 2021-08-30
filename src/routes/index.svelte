@@ -228,11 +228,11 @@ onMount(()=>{
           <div class="h-1 w-10 bg-gray-800 " />
           <div class="pt-6">
             <div
-              class="flex flex-row flex-wrap lg:flex-col gap-2 gap-x-3 text-lg cursor-pointer items-center lg:items-start"
+              class="flex flex-row flex-wrap lg:flex-col text-lg cursor-pointer items-center lg:items-start"
             >
               <div
                 class:selected="{viewAll === true}"
-                class="hover:text-[#12b4de] hover:font-medium"
+                class="hover:text-[#12b4de] hover:font-medium px-4 md:px-0 py-1 md:py-2"
                 on:click={() => {
                    viewAll = true
                    title = ''
@@ -245,7 +245,7 @@ onMount(()=>{
               {#each ytPlaylist as listItem}
                 <div
                   class:selected="{listItem.playlist_title == title}"
-                  class="hover:text-[#12b4de] hover:font-medium"
+                  class="hover:text-[#12b4de] hover:font-medium px-4 md:px-0 py-1 md:py-2"
                   on:click={() => {
                     title = listItem.playlist_title
                     getYtVideos(listItem.youtube_playlist.url);
@@ -297,12 +297,12 @@ onMount(()=>{
           /></svg
         >
         <div bind:this={box}
-          class="box mt-8 flex gap-4 flex-row justify-between overflow-x-scroll pb-2"
+          class="box mt-8 flex flex-row justify-between overflow-x-scroll pb-2"
         >
           <!-- thumbnail lopp -->
           {#if viewAll}
               {#each AllPlayListItems as ytItem}
-              <div class="flex relative flex-shrink-0 cursor-pointer">
+              <div class="flex relative flex-shrink-0 cursor-pointer px-3">
                 <div
                   on:click={() => {
                     updateYtVideo(ytItem.videoId);
@@ -324,7 +324,7 @@ onMount(()=>{
               <h1>loading ..</h1>
                 {:then ytList}
                   {#each ytList.items as { contentDetails }}
-                    <div class="flex relative flex-shrink-0 cursor-pointer">
+                    <div class="flex relative flex-shrink-0 cursor-pointer px-3">
                       <div
                         on:click={() => {
                           updateYtVideo(contentDetails.videoId);
