@@ -54,11 +54,20 @@ async function getAllPlayListItems (){
       let items =fetchAllYtvideos(newPlaylistId)
       items.then((value)=>{
         value.forEach(
-          v => AllPlayListItems=[...AllPlayListItems, v.contentDetails]
+          (v) => {
+            if(!AllPlayListItems.includes(v.contentDetails)){
+              AllPlayListItems=[...AllPlayListItems, v.contentDetails]
+            }
+          }
         )
       })
     });
  
+}
+
+function getAllPlaylistsEvent(){
+  AllPlayListItems=[]
+  getAllPlayListItems()
 }
 
 onMount(()=>{
@@ -108,12 +117,14 @@ onMount(()=>{
     videoId = id;
   }
 
+  let title;
+  $: title = '';
   // handle contact for here
   let toEmail = document.data.contact_us_email_address;
   let fromEmail;
   let name;
   let message;
-
+  let data;
   const submitForm = async () => {
     const submit = await fetch("/api/contact", {
       method: "POST",
@@ -124,9 +135,17 @@ onMount(()=>{
         toEmail,
       }),
     });
-    const data = await submit.json();
-    console.log(data);
+    data = await submit.json();
   };
+
+  //scrolling left right 
+  let box
+  function scroLeft(){
+    box.scrollLeft += 60
+  }
+  function scroRight(){
+    box.scrollLeft -= 60
+  }
 </script>
 
 <svelte:head>
@@ -146,23 +165,6 @@ onMount(()=>{
 
 <!-- body wrapper -->
 <div class="font-body">
-  <!-- For testing Prismic API -->
-  <!-- <div>
-        <span>from prismic</span>
-        <pre>{JSON.stringify(document, null, 2)}</pre>
-    </div> -->
-
-  <!-- <div>
-    <pre>{JSON.stringify(ytPlaylist)}</pre>
-    <pre>{JSON.stringify(ytPlaylist[0])}</pre>
-  </div> -->
-
-  <!-- <div class="container">
-        {#each ytListitems as item}
-            <p>{item.contentDetails.videoId}</p>
-        {/each}
-    </div> -->
-
   <!-- Logo section -->
   <header class="max-w-full mx-3 lg:mx-14 xl:mx-32 ">
     <div class="flex justify-center items-center py-8">
@@ -229,9 +231,12 @@ onMount(()=>{
               class="flex flex-row flex-wrap lg:flex-col gap-2 gap-x-3 text-lg cursor-pointer items-center lg:items-start"
             >
               <li
+                class:selected="{viewAll === true}"
                 class="hover:text-[#12b4de] hover:font-medium"
                 on:click={() => {
-                   getAllPlayListItems();
+                   viewAll = true
+                   title = ''
+                   getAllPlaylistsEvent();
                 }}
               >
                 View All
@@ -239,8 +244,10 @@ onMount(()=>{
               <li class="h-4 w-[2px] bg-gray-500 lg:hidden" />
               {#each ytPlaylist as listItem}
                 <li
+                  class:selected="{listItem.playlist_title == title}"
                   class="hover:text-[#12b4de] hover:font-medium"
                   on:click={() => {
+                    title = listItem.playlist_title
                     getYtVideos(listItem.youtube_playlist.url);
                   }}
                 >
@@ -276,8 +283,8 @@ onMount(()=>{
 
       <!-- video thumbnail carousel -->
       <div class="flex relative items-center gap-5">
-        <svg
-          class="absolute -left-14 w-8 h-8 hidden lg:block"
+        <svg on:mousedown="{()=>{scroLeft()}}"
+          class="absolute -left-14 w-8 h-8 hidden lg:block cursor-pointer"
           fill="none"
           stroke="gray"
           viewBox="0 0 24 24"
@@ -289,16 +296,10 @@ onMount(()=>{
             d="M15 19l-7-7 7-7"
           /></svg
         >
-        <div
-          class="mt-8 flex gap-4 flex-row justify-between overflow-x-scroll pb-2"
+        <div bind:this={box}
+          class="box mt-8 flex gap-4 flex-row justify-between overflow-x-scroll pb-2"
         >
-        <!-- <p>this should come hre - </p>
-        <div>
-          <pre>{JSON.stringify(AllPlayListItems)}</pre>
-          <p>{AllPlayListItems.length}</p>
-        </div> -->
-       
-          <!-- promise was fulfilled -->
+          <!-- thumbnail lopp -->
           {#if viewAll}
               {#each AllPlayListItems as ytItem}
               <div class="flex relative flex-shrink-0 cursor-pointer">
@@ -309,7 +310,7 @@ onMount(()=>{
                   class="absolute inset-0 bg-gray-700 opacity-10"
                 />
                 <iframe
-                  class="w-[15rem] 2xl:w-[15rem] 2xl:h-[8.438rem]"
+                  class="w-[11rem] h-[7rem] md:w-[13rem] md:h-[8rem] 2xl:w-[15rem] 2xl:h-[8.438rem]"
                   src="https://www.youtube.com/embed/{ytItem.videoId}"
                   title="YouTube video player"
                   frameborder="0"
@@ -331,7 +332,7 @@ onMount(()=>{
                         class="absolute inset-0 bg-gray-700 opacity-10"
                       />
                       <iframe
-                        class="w-[15rem] 2xl:w-[15rem] 2xl:h-[8.438rem]"
+                        class="w-[11rem] h-[7rem] md:w-[13rem] md:h-[8rem] 2xl:w-[15rem] 2xl:h-[8.438rem]"
                         src="https://www.youtube.com/embed/{contentDetails.videoId}"
                         title="YouTube video player"
                         frameborder="0"
@@ -345,8 +346,8 @@ onMount(()=>{
               {/await}
           {/if}
         </div>
-        <svg
-          class="absolute -right-14 w-8 h-8 hidden lg:block"
+        <svg on:mousedown="{()=>{scroRight()}}"
+          class="absolute -right-14 w-8 h-8 hidden lg:block cursor-pointer"
           fill="none"
           stroke="gray"
           viewBox="0 0 24 24"
@@ -491,44 +492,52 @@ onMount(()=>{
     class="max-w-full mx-3 lg:mx-14 xl:mx-32 border bg-cover bg-center"
     style="background-image: url('https://i.ibb.co/ZctjkQB/bg-footer.jpg');"
   >
-    <div
-      class="flex flex-col justify-center items-center gap-8 mx-2 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] py-16 "
-    >
-      <h1 class="text-2xl font-bold text-white">CONTACT MIKE DIRECTLY</h1>
-      <div class="flex flex-col gap-4 w-full md:w-[40rem] items-center">
-        <form class="flex flex-col items-center" on:submit|preventDefault={submitForm} action="">
-          <div class="flex flex-col md:flex-row gap-3 w-full">
-            <input
-              bind:value={name}
-              class=" p-3 border w-full bg-[#ffffff00] text-white"
-              type="text"
-              placeholder="Name"
-            />
-            <input
-              bind:value={fromEmail}
-              class=" p-3 border w-full bg-[#ffffff00] text-white"
-              type="email"
-              placeholder="Email"
-            />
-          </div>
-          <textarea
-            bind:value={message}
-            class="p-2 w-full border bg-[#ffffff00] text-white my-5"
-            name="description"
-            id="emailBody"
-            cols="10"
-            rows="5"
-            placeholder="Type your message"
+  {#if !data}
+  <div class="flex flex-col justify-center items-center gap-8 mx-2 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] py-16">
+    <h1 class="text-2xl font-bold text-white">CONTACT MIKE DIRECTLY</h1>
+    <div class="flex flex-col gap-4 w-full md:w-[40rem] items-center">
+      <form class="flex flex-col items-center" on:submit|preventDefault={submitForm} action="">
+        <div class="flex flex-col md:flex-row gap-3 w-full">
+          <input
+            bind:value={name}
+            class=" p-3 border w-full bg-[#ffffff00] text-white"
+            type="text"
+            placeholder="Name"
           />
           <input
-            class="bg-[#12b4de] w-[12rem] py-2 text-white cursor-pointer font-medium hover:bg-[#14a7cc] bg-opacity-90 mt-6"
-            type="submit"
-            value="Send"
+            bind:value={fromEmail}
+            class=" p-3 border w-full bg-[#ffffff00] text-white"
+            type="email"
+            placeholder="Email"
           />
-        </form>
-      </div>
+        </div>
+        <textarea
+          bind:value={message}
+          class="p-2 w-full border bg-[#ffffff00] text-white my-5"
+          name="description"
+          id="emailBody"
+          cols="10"
+          rows="5"
+          placeholder="Type your message"
+        />
+        <input
+          class="bg-[#12b4de] w-[12rem] py-2 text-white cursor-pointer font-medium hover:bg-[#14a7cc] bg-opacity-90 mt-6"
+          type="submit"
+          value="Send"
+        />
+      </form>
     </div>
+  </div>
+  {:else}
+  <div class="flex flex-col justify-center items-center gap-8 mx-2 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] py-[14rem]">
+    <div class="bg-green-400 bg-opacity-30 px-2">
+      <p class="text-gray-200">Thanks!, your message has been successfully sent -- I'll get back to you as soon as I can"</p>
+    </div>
+  </div>
+  {/if}
+   
   </footer>
+  <!-- Copy right and social media links -->
   <footer
     class="max-w-full mx-3 lg:mx-14 xl:mx-32 flex justify-between items-center mt-3 pb-10"
   >
@@ -561,12 +570,11 @@ onMount(()=>{
 
 <style>
   @import url("https://css.gg/instagram.css");
-
   .youtube {
     position: relative;
     width: 100%;
     overflow: hidden;
-    padding-top: 44.25%; /* 16:9 Aspect Ratio */
+    padding-top: 50.25%; /* 16:9 Aspect Ratio */
   }
 
   .responsive-iframe {
@@ -579,11 +587,18 @@ onMount(()=>{
     height: 100%;
     border: none;
   }
+  .selected{
+    color:#12b4de;
+    font-weight: 600;
+  }
   ::placeholder {
     color: #e0e0e0;
   }
   ::-webkit-input-placeholder {
     /* Edge */
     color: #e0e0e0;
+  }
+  .box{
+    scroll-behavior: smooth;
   }
 </style>
