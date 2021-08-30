@@ -221,7 +221,7 @@ onMount(()=>{
       class="flex flex-col justify-center mx-5 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] pt-10 lg:pt-[9rem] pb-20"
     >
       <!-- video full view + filter options -->
-      <div class="flex flex-col lg:flex-row lg:justify-between space-y-6">
+      <div class="flex flex-col lg:flex-row lg:justify-between space-x-0 space-y-6 md:space-x-10 md:space-y-0">
         <div class="space-y-2">
           <h1 class="text-3xl text-[#12b4de] font-bold">FEATURED</h1>
           <h1 class="text-5xl text-[#202427] font-bold pb-4">WORK</h1>
@@ -232,7 +232,7 @@ onMount(()=>{
             >
               <div
                 class:selected="{viewAll === true}"
-                class="hover:text-[#12b4de] hover:font-medium"
+                class="hover:text-[#12b4de] hover:font-medium mt-3 md:mt-0"
                 on:click={() => {
                    viewAll = true
                    title = ''
@@ -307,7 +307,7 @@ onMount(()=>{
                   on:click={() => {
                     updateYtVideo(ytItem.videoId);
                   }}
-                  class="absolute inset-0 bg-gray-700 opacity-10"
+                  class="absolute inset-0 opacity-10"
                 />
                 <iframe
                   class="w-[11rem] h-[7rem] md:w-[13rem] md:h-[8rem] 2xl:w-[15rem] 2xl:h-[8.438rem]"
@@ -329,7 +329,7 @@ onMount(()=>{
                         on:click={() => {
                           updateYtVideo(contentDetails.videoId);
                         }}
-                        class="absolute inset-0 bg-gray-700 opacity-10"
+                        class="absolute inset-0 opacity-10"
                       />
                       <iframe
                         class="w-[11rem] h-[7rem] md:w-[13rem] md:h-[8rem] 2xl:w-[15rem] 2xl:h-[8.438rem]"
@@ -495,7 +495,7 @@ onMount(()=>{
   {#if !data}
   <div class="flex flex-col justify-center items-center gap-8 mx-2 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] py-16">
     <h1 class="text-2xl font-bold text-white">CONTACT MIKE DIRECTLY</h1>
-    <div class="flex flex-col gap-4 w-full md:w-[40rem] items-center">
+    <div class="flex flex-col space-y-4 w-full md:w-[40rem] items-center">
       <form class="flex flex-col items-center" on:submit|preventDefault={submitForm} action="">
         <div class="flex flex-col md:flex-row gap-3 w-full">
           <input
