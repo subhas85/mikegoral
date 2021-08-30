@@ -227,10 +227,10 @@ onMount(()=>{
           <h1 class="text-5xl text-[#202427] font-bold pb-4">WORK</h1>
           <div class="h-1 w-10 bg-gray-800 " />
           <div class="pt-6">
-            <ul
+            <div
               class="flex flex-row flex-wrap lg:flex-col gap-2 gap-x-3 text-lg cursor-pointer items-center lg:items-start"
             >
-              <li
+              <div
                 class:selected="{viewAll === true}"
                 class="hover:text-[#12b4de] hover:font-medium"
                 on:click={() => {
@@ -240,10 +240,10 @@ onMount(()=>{
                 }}
               >
                 View All
-              </li>
-              <li class="h-4 w-[2px] bg-gray-500 lg:hidden" />
+              </div>
+              <div class="h-4 w-[2px] bg-gray-500 lg:hidden" />
               {#each ytPlaylist as listItem}
-                <li
+                <div
                   class:selected="{listItem.playlist_title == title}"
                   class="hover:text-[#12b4de] hover:font-medium"
                   on:click={() => {
@@ -252,10 +252,10 @@ onMount(()=>{
                   }}
                 >
                   {listItem.playlist_title}
-                </li>
-                <li class="h-4 w-[2px] bg-gray-500 lg:hidden" />
+                </div>
+                <div class="h-4 w-[2px] bg-gray-500 lg:hidden" />
               {/each}
-            </ul>
+              </div>
           </div>
         </div>
         <div class="youtube">
