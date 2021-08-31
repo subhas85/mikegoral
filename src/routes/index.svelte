@@ -430,7 +430,7 @@ onMount(()=>{
       <div class="flex flex-col">
         <div>
           <h1 class="font-bold text-[#12b4de]">{bookingDetails.location_title[0].text}</h1>
-          <div class="mt-4 space-y-1">
+          <div class="mt-3 space-y-1">
             <p class=" w-[12rem]">
               {bookingDetails.address}
             </p>

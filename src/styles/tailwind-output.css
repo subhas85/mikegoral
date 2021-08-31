@@ -824,10 +824,6 @@ html {
 	gap: 1rem;
 }
 
-.gap-\[3rem\]{
-	gap: 3rem;
-}
-
 .space-x-0 > :not([hidden]) ~ :not([hidden]){
 	--tw-space-x-reverse: 0;
 	margin-right: calc(0px * var(--tw-space-x-reverse));
@@ -858,6 +854,12 @@ html {
 	margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
 }
 
+.space-y-10 > :not([hidden]) ~ :not([hidden]){
+	--tw-space-y-reverse: 0;
+	margin-top: calc(2.5rem * calc(1 - var(--tw-space-y-reverse)));
+	margin-bottom: calc(2.5rem * var(--tw-space-y-reverse));
+}
+
 .space-y-1 > :not([hidden]) ~ :not([hidden]){
 	--tw-space-y-reverse: 0;
 	margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
@@ -868,12 +870,6 @@ html {
 	--tw-space-y-reverse: 0;
 	margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
 	margin-bottom: calc(1rem * var(--tw-space-y-reverse));
-}
-
-.space-y-10 > :not([hidden]) ~ :not([hidden]){
-	--tw-space-y-reverse: 0;
-	margin-top: calc(2.5rem * calc(1 - var(--tw-space-y-reverse)));
-	margin-bottom: calc(2.5rem * var(--tw-space-y-reverse));
 }
 
 .overflow-x-scroll{
@@ -1219,10 +1215,6 @@ html {
 
 	.lg\:justify-between{
 		justify-content: space-between;
-	}
-
-	.lg\:gap-\[8rem\]{
-		gap: 8rem;
 	}
 
 	.lg\:space-x-\[8rem\] > :not([hidden]) ~ :not([hidden]){
