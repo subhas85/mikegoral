@@ -9,3 +9,11 @@ html {
 }
 
 @tailwind utilities;
+
+
+@layer base {
+   
+    h4 {
+      @apply font-bold text-gray-500;
+    }
+  }

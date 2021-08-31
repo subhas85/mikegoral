@@ -583,6 +583,12 @@ video {
 	--tw-filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
+h4{
+	font-weight: 700;
+	--tw-text-opacity: 1;
+	color: rgba(107, 114, 128, var(--tw-text-opacity));
+}
+
 /* custom css goes here */
 html {
     scroll-behavior: smooth;
@@ -824,10 +830,6 @@ html {
 
 .gap-\[3rem\]{
 	gap: 3rem;
-}
-
-.gap-3{
-	gap: 0.75rem;
 }
 
 .space-x-0 > :not([hidden]) ~ :not([hidden]){
@@ -1102,19 +1104,23 @@ html {
 	filter: var(--tw-filter);
 }
 
+
 .hover\:bg-\[\#14a7cc\]:hover{
 	--tw-bg-opacity: 1;
 	background-color: rgba(20, 167, 204, var(--tw-bg-opacity));
 }
 
+
 .hover\:font-medium:hover{
 	font-weight: 500;
 }
+
 
 .hover\:text-\[\#12b4de\]:hover{
 	--tw-text-opacity: 1;
 	color: rgba(18, 180, 222, var(--tw-text-opacity));
 }
+
 
 @media (min-width: 768px){
 
@@ -1169,6 +1175,7 @@ html {
 	}
 }
 
+
 @media (min-width: 1024px){
 
 	.lg\:mx-14{
@@ -1214,6 +1221,7 @@ html {
 	}
 }
 
+
 @media (min-width: 1280px){
 
 	.xl\:mx-32{
@@ -1234,6 +1242,7 @@ html {
 		width: 83.333333%;
 	}
 }
+
 
 @media (min-width: 1536px){
 

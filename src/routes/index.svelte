@@ -45,7 +45,7 @@
     }
   }
 
-  // get all the playlist items from all the playlists
+// get all the playlist items from all the playlists
 async function getAllPlayListItems (){
   viewAll = true;
   ytPlaylist.forEach(playList => {
@@ -165,6 +165,9 @@ onMount(()=>{
 
 <!-- body wrapper -->
 <div class="font-body">
+  <!-- testing -  -->
+  <!-- <div> <pre>{JSON.stringify(document.data.booking_details[0], null, 2)}</pre> </div> -->
+  
   <!-- Logo section -->
   <header class="max-w-full mx-3 lg:mx-14 xl:mx-32 ">
     <div class="flex justify-center items-center py-8">
@@ -211,9 +214,6 @@ onMount(()=>{
       </nav>
     </div>
   </section>
-
-  <!-- testing -  -->
-  <div id="player" />
 
   <!-- Featured work section -->
   <section id="featured" class="max-w-full mx-3 lg:mx-14 xl:mx-32 bg-[#e9e9e9]">
@@ -426,62 +426,21 @@ onMount(()=>{
       <div
         class="flex flex-col md:flex-row mt-[2rem] gap-[3rem] md:gap-[4rem] lg:gap-[8rem]"
       >
-        <div class="flex flex-col">
-          <div>
-            <h1 class="font-bold text-[#12b4de]">NEW YORK</h1>
-            <div class="mt-4 space-y-1">
-              <p class=" w-[12rem]">
-                Atlas 15 East 32nd Street New York, New York-10016
-              </p>
-            </div>
-          </div>
-          <div class="mt-8">
-            <h1 class="font-bold text-gray-500">Lisa Marber-Rich</h1>
-            <div class="mt-1 space-y-2">
-              <h4>Promos/ Narration</h4>
-              <h4>lisa@atlastalent.com</h4>
-              <h4>Jonn Wasser</h4>
-              <h4>jonn@atlastalent.com</h4>
-            </div>
+      {#each document.data.booking_details as bookingDetails}
+      <div class="flex flex-col">
+        <div>
+          <h1 class="font-bold text-[#12b4de]">{bookingDetails.location_title[0].text}</h1>
+          <div class="mt-4 space-y-1">
+            <p class=" w-[12rem]">
+              {bookingDetails.address}
+            </p>
           </div>
         </div>
-        <div class="flex flex-col">
-          <div>
-            <h1 class="font-bold text-[#12b4de]">LOS ANGELES</h1>
-            <div class="mt-4 space-y-1">
-              <h4>Atlas</h4>
-              <h4>8721 Sunset Blvd.</h4>
-              <h4>West Hollywood,</h4>
-              <h4>CA 90069</h4>
-              <h4>310-324-9800</h4>
-            </div>
-          </div>
-          <div class="mt-8">
-            <h1 class="font-bold text-gray-500">Heather Vergo</h1>
-            <div class="mt-1 space-y-2">
-              <h4>Promos/ Narration</h4>
-              <h4>Commercials</h4>
-              <h4>heather@atlastalent.com</h4>
-            </div>
-          </div>
+        <div class="mt-8 space-y-2">
+          {@html PrismicDom.RichText.asHtml(bookingDetails.contacts)}
         </div>
-        <div class="flex flex-col">
-          <div>
-            <h1 class="font-bold text-[#12b4de]">TORONTO</h1>
-            <div class="mt-4 space-y-1">
-              <h4>Foster Talent</h4>
-              <h4>530 Queen St. East</h4>
-              <h4>Toronto, ON M5A 1V2</h4>
-              <h4>416-309-7373</h4>
-            </div>
-          </div>
-          <div class="mt-8">
-            <h1 class="font-bold text-gray-500">Jude Foster</h1>
-            <div class="mt-1 space-y-2">
-              <a href="mailto: jude@fostertalent.com">jude@fostertalent.com</a>
-            </div>
-          </div>
-        </div>
+      </div>
+      {/each}
       </div>
     </div>
   </section>
@@ -497,7 +456,7 @@ onMount(()=>{
     <h1 class="text-2xl font-bold text-white">CONTACT MIKE DIRECTLY</h1>
     <div class="flex flex-col space-y-4 w-full md:w-[40rem] items-center">
       <form class="flex flex-col items-center" on:submit|preventDefault={submitForm} action="">
-        <div class="flex flex-col md:flex-row space-y-3 w-full">
+        <div class="flex flex-col md:flex-row space-x-3 w-full">
           <input
             bind:value={name}
             class=" p-3 border w-full bg-[#ffffff00] text-white"
@@ -544,7 +503,7 @@ onMount(()=>{
     <h5 class=" underline text-gray-400 text-sm">
       ©mikegoral.com All rights reserved
     </h5>
-    <div class="flex items-center gap-3">
+    <div class="flex items-center space-x-3">
       <a
         href={document.data.instagram_link.url}
         class="bg-[#12b4de] w-10 h-10 rounded-full flex items-center justify-center"
@@ -601,4 +560,5 @@ onMount(()=>{
   .box{
     scroll-behavior: smooth;
   }
+
 </style>
