@@ -167,7 +167,7 @@ onMount(()=>{
 <div class="font-body">
   <!-- testing -  -->
   <!-- <div> <pre>{JSON.stringify(document.data.booking_details[0], null, 2)}</pre> </div> -->
-  
+
   <!-- Logo section -->
   <header class="max-w-full mx-3 lg:mx-14 xl:mx-32 ">
     <div class="flex justify-center items-center py-8">
@@ -424,7 +424,7 @@ onMount(()=>{
         <div class="h-1 w-10 bg-gray-800" />
       </div>
       <div
-        class="flex flex-col md:flex-row mt-[2rem] gap-[3rem] md:gap-[4rem] lg:gap-[8rem]"
+        class="flex flex-col md:flex-row mt-[2rem] space-y-10 md:space-x-[4rem] lg:space-x-[8rem]"
       >
       {#each document.data.booking_details as bookingDetails}
       <div class="flex flex-col">
@@ -441,6 +441,7 @@ onMount(()=>{
         </div>
       </div>
       {/each}
+
       </div>
     </div>
   </section>
@@ -456,7 +457,7 @@ onMount(()=>{
     <h1 class="text-2xl font-bold text-white">CONTACT MIKE DIRECTLY</h1>
     <div class="flex flex-col space-y-4 w-full md:w-[40rem] items-center">
       <form class="flex flex-col items-center" on:submit|preventDefault={submitForm} action="">
-        <div class="flex flex-col md:flex-row space-x-3 w-full">
+        <div class="flex flex-col md:flex-row space-y-3 md:space-x-3 w-full">
           <input
             bind:value={name}
             class=" p-3 border w-full bg-[#ffffff00] text-white"
