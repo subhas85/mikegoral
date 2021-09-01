@@ -513,7 +513,7 @@ onMount(()=>{
   {:else}
   <div class="flex flex-col justify-center items-center gap-8 mx-2 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] py-[14rem]">
     <div class="bg-green-400 bg-opacity-30 px-2">
-      <p class="text-gray-200">Thanks!, your message has been successfully sent -- I'll get back to you as soon as I can"</p>
+      <p class="text-gray-200">Thanks!, your message has been successfully sent -- I'll get back to you as soon as I can</p>
     </div>
   </div>
   {/if}
