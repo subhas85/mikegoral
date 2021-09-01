@@ -5,7 +5,7 @@
   export async function load({ fetch }) {
     const document = await Client.getByUID("page", "homepage");
     const res = await fetch(
-      "https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&&maxResults=25&playlistId=PL1VQcdkevaIG2MBFH29dO4jaFXd3cWR5z&key=AIzaSyCX0hzH8Ts0t80Mp4asrLFkLTKFuIFNRVw"
+      "https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&&maxResults=25&playlistId=PL1VQcdkevaIG2MBFH29dO4jaFXd3cWR5z&key=AIzaSyA3RQytw7wxjReJNtILjpWxjIaZpkCPeq0"
     );
     const ytList = await res.json();
     const ytListitems = ytList.items;
@@ -35,7 +35,7 @@
   // Get all the playlist items from all the playlists
   async function fetchAllYtvideos(Id) {
     const response = await self.fetch(
-      `https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&&maxResults=15&playlistId=${Id}&key=AIzaSyCX0hzH8Ts0t80Mp4asrLFkLTKFuIFNRVw`
+      `https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&&maxResults=15&playlistId=${Id}&key=AIzaSyA3RQytw7wxjReJNtILjpWxjIaZpkCPeq0`
     );
     if (response.ok) {
       playListItems = await response.json()
@@ -78,7 +78,7 @@ onMount(()=>{
   // Get the playlist ids
   async function fetchYtvideos(playlistId) {
     const response = await self.fetch(
-      `https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&&maxResults=15&playlistId=${playlistId}&key=AIzaSyCX0hzH8Ts0t80Mp4asrLFkLTKFuIFNRVw`
+      `https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&&maxResults=15&playlistId=${playlistId}&key=AIzaSyA3RQytw7wxjReJNtILjpWxjIaZpkCPeq0`
     );
     if (response.ok) {
       return response.json();
