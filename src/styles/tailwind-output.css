@@ -1138,19 +1138,23 @@ html {
 	filter: var(--tw-filter);
 }
 
+
 .hover\:bg-\[\#14a7cc\]:hover{
 	--tw-bg-opacity: 1;
 	background-color: rgba(20, 167, 204, var(--tw-bg-opacity));
 }
 
+
 .hover\:font-medium:hover{
 	font-weight: 500;
 }
+
 
 .hover\:text-\[\#12b4de\]:hover{
 	--tw-text-opacity: 1;
 	color: rgba(18, 180, 222, var(--tw-text-opacity));
 }
+
 
 @media (min-width: 768px){
 
@@ -1216,6 +1220,7 @@ html {
 		margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
 	}
 }
+
 
 @media (min-width: 1024px){
 
@@ -1290,6 +1295,7 @@ html {
 	}
 }
 
+
 @media (min-width: 1280px){
 
 	.xl\:mx-32{
@@ -1310,6 +1316,7 @@ html {
 		width: 83.333333%;
 	}
 }
+
 
 @media (min-width: 1536px){
 
