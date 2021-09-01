@@ -14,10 +14,10 @@ export const post = (requestl) => {
   const request = mailj.post("send").request({
     FromEmail: 'donotreply@mikegoral.com',
     FromName: name,
-    Subject: `Email from ${fromEmail} from Mike Goral website`,
+    Subject: `${name} from the website would like to connect`,
     "Text-part": `From:${name},${fromEmail} and the message is:${message}`,
     "Html-part":
-      '<h3>You have a new message from mikegoral.com',
+      '<p><strong>From: </strong>${name}</p> <p><strong>Email: </strong>${fromEmail}</p> <p><strong>Message: </strong>${message}</p> ',
     Recipients: [{ Email: toEmail }],
   });
   request
