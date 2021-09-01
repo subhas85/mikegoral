@@ -16,8 +16,7 @@ export const post = (requestl) => {
     FromName: name,
     Subject: `${name} from the website would like to connect`,
     "Text-part": `From:${name},${fromEmail} and the message is:${message}`,
-    "Html-part":
-      '<p><strong>From: </strong>${name}</p> <p><strong>Email: </strong>${fromEmail}</p> <p><strong>Message: </strong>${message}</p> ',
+    "Html-part": `<p><strong>From: </strong>${name}</p> <p><strong>Email: </strong>${fromEmail}</p> <p><strong>Message: </strong>${message}</p>`,
     Recipients: [{ Email: toEmail }],
   });
   request
