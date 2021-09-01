@@ -146,6 +146,9 @@ onMount(()=>{
   function scroRight(){
     box.scrollLeft -= 270
   }
+
+  // mobile nav toggle
+  let mobileNav=false;
 </script>
 
 <svelte:head>
@@ -170,18 +173,24 @@ onMount(()=>{
 
   <!-- Logo section -->
   <header class="max-w-full mx-3 lg:mx-14 xl:mx-32 ">
-    <div class="flex justify-center items-center py-8">
+    <div class="flex justify-between md:justify-center items-center py-8">
       <img
         class="h-8"
         src="https://i.ibb.co/ZmJQKmz/mikegoral-logo.png"
         alt="mikegoral-logo"
         border="0"
       />
+      {#if !mobileNav}
+        <span on:click="{()=>{mobileNav=!mobileNav}}" class="md:hidden border py-3 px-2"><i class="gg-menu"></i></span>
+        {:else}
+        <span on:click="{()=>{mobileNav=!mobileNav}}" class="md:hidden border p-1"><i class="gg-close"></i></span>
+      {/if}
+     
     </div>
   </header>
 
   <!-- Hero section with menu -->
-  <section class="max-w-full mx-3 lg:mx-14 xl:mx-32 bg-gray-300 re">
+  <section class="max-w-full mx-3 lg:mx-14 xl:mx-32 bg-gray-300">
     <!-- menu/nav starts here -->
     <div
       class="h-[418px] md:h-[618px] bg-center bg-cover relative"
@@ -189,7 +198,7 @@ onMount(()=>{
     >
       <!-- hero graphic -->
       <div
-        class="absolute bottom-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        class="absolute bottom-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
       >
         <img
           class=""
@@ -200,7 +209,7 @@ onMount(()=>{
       </div>
 
       <!-- main navigation desktop -->
-      <nav class="md:flex justify-center items-center gap-6 hidden py-8">
+      <nav class="relative hidden md:flex justify-center items-center gap-6 py-8">
         <a href="#featured">DEMOS</a>
         <div class="h-4 w-px bg-gray-400" />
         <a href="#featured">FEATURED WORK</a>
@@ -212,6 +221,23 @@ onMount(()=>{
           >
         </div>
       </nav>
+
+      <!-- main navigation mobile -->
+      {#if mobileNav}
+        <nav class="relative flex flex-col md:hidden space-y-6 py-6 pl-6 bg-gray-200 z-20 shadow-md">
+          <a href="#featured">DEMOS</a>
+          
+          <a href="#featured">FEATURED WORK</a>
+        
+          <a href="#about">ABOUT MIKEGORAL</a>
+          <div>
+            <a href="#book" class="bg-[#12b4de] font-medium px-4 py-1"
+              >BOOK MIKE</a
+            >
+          </div>
+        </nav>
+      {/if}
+
     </div>
   </section>
 
@@ -221,18 +247,16 @@ onMount(()=>{
       class="flex flex-col justify-center mx-5 lg:mx-[2rem] xl:mx-[8rem] 2xl:mx-[16rem] pt-10 lg:pt-[9rem] pb-20"
     >
       <!-- video full view + filter options -->
-      <div class="flex flex-col lg:flex-row lg:justify-between space-x-0 space-y-6 md:space-x-10 md:space-y-0">
+      <div class="flex flex-col lg:flex-row lg:justify-between space-x-0 space-y-6 lg:space-x-10 lg:space-y-0">
         <div class="space-y-2">
           <h1 class="text-3xl text-[#12b4de] font-bold">FEATURED</h1>
           <h1 class="text-5xl text-[#202427] font-bold pb-4">WORK</h1>
           <div class="h-1 w-10 bg-gray-800 " />
           <div class="pt-6">
-            <div
-              class="flex flex-row flex-wrap space-x-3 md:space-x-0 space-y-3 lg:flex-col text-lg cursor-pointer items-center lg:items-start"
-            >
+            <div class="flex flex-row flex-wrap space-x-3 lg:space-x-0 space-y-3 lg:flex-col text-lg cursor-pointer items-center lg:items-start">
               <div
                 class:selected="{viewAll === true}"
-                class="hover:text-[#12b4de] hover:font-medium mt-3 md:mt-0"
+                class="hover:text-[#12b4de] hover:font-medium mt-3 lg:mt-0"
                 on:click={() => {
                    viewAll = true
                    title = ''
@@ -364,16 +388,13 @@ onMount(()=>{
   </section>
 
   <!-- About section -->
-  <section
-    id="about"
-    class="max-w-full mx-8 lg:mx-14 xl:mx-32 mt-[3.5rem] xl:mt-[7rem] "
-  >
+  <section id="about" class="max-w-full mx-8 lg:mx-14 xl:mx-32 mt-[3.5rem] xl:mt-[7rem] ">
     <div class="flex flex-col">
       <div
         class="flex flex-col-reverse md:flex-row gap-[4rem] 2xl:gap-[8rem] items-center"
       >
         <img
-          class="w-full"
+          class="w-full md:w-1/2 lg:w-full"
           src={document.data.about_image.url}
           alt="3"
           border="0"
@@ -405,6 +426,7 @@ onMount(()=>{
         </div>
 
         <img
+          class="w-full md:w-1/2 lg:w-full"
           src={document.data.about_2nd_image.url}
           alt="sound-wave-mike-goral"
           border="0"
@@ -530,6 +552,8 @@ onMount(()=>{
 
 <style>
   @import url("https://css.gg/instagram.css");
+  @import url('https://css.gg/close.css');
+  @import url('https://css.gg/menu.css');
   .youtube {
     position: relative;
     width: 100%;
