@@ -24,6 +24,8 @@ import mailject from "node-mailjet";
 //   });
 
 //  -----------------------
+
+/*
 const mailjet = mailject.connect(
     "842a46714bc2ed5f84f4650bf33177af",
     "d536c59939cf1b5326d334cd3f32e0ed"
@@ -56,3 +58,4 @@ request
   .catch((err) => {
     console.log(err.statusCode);
   });
+*/
